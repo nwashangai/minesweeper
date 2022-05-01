@@ -1,0 +1,10 @@
+{
+  "include": ["src"],
+  "exclude": [],
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "baseUrl": "src",
+    "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true
+  },
+}
