@@ -18,9 +18,6 @@ const MineSweeper = () => {
     dispatch(updateStatus(STATUS.PLAYING));
   };
 
-  console.log('kkkk');
-  
-
   return (
     <Container>
       <Card padding="21px" styles={gameBordStyle}>

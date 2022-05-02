@@ -1,12 +1,7 @@
 export const getShowBackground = (isOpen: boolean) => {
   return isOpen
-    ? `background: var(--gray-1);
-    border-width: 2px;
-    `
-    : `
-    &:hover {
-        background: var(--overlay);
-      }`;
+    ? 'background: var(--gray-1); border-width: 2px;'
+    : '&:hover { background: var(--overlay); }';
 };
 
 export const getCellValueColor = (value: number) => {

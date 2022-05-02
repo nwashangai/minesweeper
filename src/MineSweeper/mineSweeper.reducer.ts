@@ -9,6 +9,7 @@ const minesweeper = createSlice({
     grid: [],
     level: 1,
     status: "playing",
+    startTime: false,
     levelConfig: { rows: 10, cols: 10, map: "" },
   },
   reducers: {
@@ -16,6 +17,7 @@ const minesweeper = createSlice({
       state.level = action.payload.level;
     },
     setLevelConfig(state, action) {
+      state.startTime = false;
       state.levelConfig = action.payload;
       state.grid = generateGrid(action.payload);
     },
@@ -44,6 +46,9 @@ const minesweeper = createSlice({
               state.grid[i].show = true;
             }
           }
+        }
+        if (!!state.grid.find((field) => field.show)) {
+          state.startTime = true;
         }
       } else {
         state.status = "playing";
@@ -80,7 +85,7 @@ export const getIsClocking = ({
   mineSweeper: state,
 }: {
   mineSweeper: InitialStateType;
-}) => !!state.grid.find((field) => field.show) && state.status === "playing";
+}) => state.startTime && state.status === "playing";
 
 export const getGridLevelsConfig = ({
   mineSweeper: state,

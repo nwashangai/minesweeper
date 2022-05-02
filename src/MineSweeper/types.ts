@@ -18,6 +18,7 @@ export type InitialStateType = {
   level: number;
   levelConfig: LevelConfig;
   status: string;
+  startTime: boolean;
 };
 
 export type ContentType = {
