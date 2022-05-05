@@ -3,9 +3,8 @@ export type LevelConfig = { cols: number; rows: number; map: string };
 export type CellType = {
   id: string;
   show?: boolean;
-  mine?: number;
-  isMined: boolean;
-  isQuestion?: boolean;
+  mine?: boolean;
+  isPossibleMine: boolean;
   sibblingsMines?: number;
   point?: {
     col: number;
@@ -23,9 +22,13 @@ export type InitialStateType = {
 
 export type ContentType = {
   show?: boolean;
-  mine?: number;
-  isMined: boolean;
-  isQuestion?: boolean;
+  mine?: boolean;
+  isPossibleMine: boolean;
   siblings?: number;
   status?: string;
 };
+
+export type DefaultActionType = {
+  type: string;
+  payload?: any
+}

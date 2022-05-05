@@ -20,9 +20,17 @@ export const Card = styled.div<{
 `;
 
 export const Timer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 3px;
+  background: var(--gray-5);
   font-family: "Press Start 2P", cursive;
   line-height: 2.7;
   font-size: 20px;
   color: red;
   float: right;
+
+  > img:not(:last-child) {
+    margin-right: 3px;
+  }
 `;

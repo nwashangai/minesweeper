@@ -8,8 +8,7 @@ test("It should generate grid data from game level configuration when id is prov
   
   expect(grid.length).toBe(100);
   expect(grid[0].show).toBe(false);
-  expect(grid[0].isMined).toBe(false);
-  expect(grid[0].isQuestion).toBe(false);
+  expect(grid[0].isPossibleMine).toBe(false);
   expect(grid[5].point.col).toBe(5);
   expect(grid[5].point.row).toBe(0);
 });
@@ -21,7 +20,6 @@ test("It should generate grid data from game level configuration when id is not 
     
     expect(grid.length).toBe(800);
     expect(grid[0].show).toBe(undefined);
-    expect(grid[0].isMined).toBe(false);
-    expect(grid[0].isQuestion).toBe(undefined);
+    expect(grid[0].isPossibleMine).toBe(false);
     expect(grid[5].point).toBe(undefined);
   });

@@ -9,6 +9,7 @@ import {
 import { eventChannel, END } from "redux-saga";
 
 import { COMMANDS, config, STATUS } from "./constants";
+import { DefaultActionType } from './types'
 import getLevelsConfigFromMap from "./utils/getLevelsConfigFromMap";
 import {
   createGrame,
@@ -21,8 +22,10 @@ import {
 } from "./mineSweeper.reducer";
 
 let socket = new WebSocket(config.socketUrl);
+const gameOver = new Audio('/audios/game-over.wav');
+const gameWin = new Audio('/audios/game-win.wav');
 
-function wsInitChannel(ws) {
+export function wsInitChannel(ws) {
   return eventChannel((emitter) => {
     ws.onopen = () => emitter({ type: COMMANDS.WS_OPEN });
     ws.onmessage = ({ data }) =>
@@ -34,36 +37,37 @@ function wsInitChannel(ws) {
   });
 }
 
-function* wsSaga() {
+export function* wsSaga() {
   const action = yield take(yield call(wsInitChannel, socket));
 
   yield put(action);
 }
 
-function* generateGame() {
+export function* generateGame() {
   const createAction = yield call(createGrame);
+
   yield put(createAction);
 }
 
-function* getConfig() {
+export function* getConfig() {
   const level = yield select(selectLevel);
   yield put({ type: COMMANDS.WS_SEND, payload: `new ${level}` });
   yield put({ type: COMMANDS.WS_SEND, payload: "map" });
   yield put({ type: COMMANDS.CREATE_GRID });
-  yield generateGame;
+  yield generateGame();
 }
 
-function* emitInitialData(action: any) {
+export function* emitInitialData(action: DefaultActionType) {
   yield socket.send(action.payload);
 }
 
-function* onOpen() {
+export function* onOpen() {
   yield takeEvery(COMMANDS.WS_OPEN, getConfig);
   yield takeEvery(COMMANDS.WS_SEND, emitInitialData);
   yield takeEvery(COMMANDS.WS_SEND, onRecieveMessage);
 }
 
-function* setMap(action) {
+export function* updateGame(action: DefaultActionType) {
   const message = action.payload;
 
   if (message.startsWith("map:")) {
@@ -74,38 +78,42 @@ function* setMap(action) {
   } else if (message.startsWith("open:")) {
     if (message.includes("win")) {
       yield put(updateStatus(STATUS.WON));
+      gameWin.currentTime = 0;
+      gameWin.play();
     }
 
     if (message.includes("You lose")) {
       yield put(updateStatus(STATUS.LOSE));
+      gameOver.currentTime = 0;
+      gameOver.play();
     }
 
     yield put({ type: COMMANDS.WS_SEND, payload: "map" });
   }
 }
 
-function* setNewLevelConfig() {
+export function* setNewLevelConfig() {
   yield takeEvery(changeLevel, getConfig);
   yield takeEvery(setLevelConfig, generateGame);
 }
 
-function* onRecieveMessage() {
+export function* onRecieveMessage() {
   const channel = yield call(wsInitChannel, socket);
 
   while (true) {
     const action = yield take(channel);
 
-    yield call(setMap, action);
+    yield call(updateGame, action);
   }
 }
 
-function* onOpenXY(action) {
+export function* onOpenXY(action: DefaultActionType) {
   const grid = yield select(getCell, action.payload);
   const { row, col } = grid.point;
   yield put({ type: COMMANDS.WS_SEND, payload: `open ${col} ${row}` });
 }
 
-function* openXY() {
+export function* openXY() {
   yield takeLatest(open, onOpenXY);
 }
 

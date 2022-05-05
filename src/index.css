@@ -1,16 +1,21 @@
 :root {
-  --backgroundColor: #f7f7f7;
+  --backgroundColor: #000000b6;
   --primary-color: #bfbfbf;
   --danger: #df141483;
   --warning: #dfcb14bd;
   --gray-1: #ffffff;
   --gray-2: #e5e5e5;
   --gray-3: #818181;
+  --gray-5: #000000;
   --overlay: #00000026;
   --overlay-main: #000000a2;
   --cell-1-color: #1e38ac;
   --cell-2-color: #23750f;
   --cell-3-color: #df1451;
+}
+
+*:focus {
+  outline: none;
 }
 
 body {

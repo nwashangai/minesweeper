@@ -23,6 +23,7 @@ export const GridContainer = styled.div<{
 export const GridItem = styled(Card)<{ show: boolean; siblings: number }>`
   width: 32px;
   height: 32px;
+  cursor: context-menu;
 
   ${({ show }) => getShowBackground(show)}
 
@@ -38,6 +39,12 @@ export const Dropdown = styled.select`
   width: 100%;
   max-width: 400px;
   height: 50px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-repeat: no-repeat;
+  background-position-x: 98%;
+  background-position-y: 53%;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
   border-width: 4px;
   border-style: solid;
   font-size: 20px;
@@ -101,6 +108,7 @@ export const OverlayContent = styled.div`
 
     > span {
       align-self: center;
+      white-space: nowrap;
       margin: auto 10px;
       font-size: 18px;
       color: var(--primary-color);

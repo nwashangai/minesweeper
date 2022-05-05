@@ -9,10 +9,17 @@ import {
 import { Timer } from "../common/Styles";
 import zeroPad from "../common/utils/zeroPad";
 
+const renderTotalCount = (countString: string) => {
+  const digits = countString.split(''); 
+  return <>
+    {digits.map((digit: string, indx: number) => <img src={`/images/${digit}.svg`} alt={digit} key={`digit-${indx}`} />)}
+  </>
+}
+
 const Counter = React.memo(() => {
   const isClocking = useSelector(getIsClocking);
 
-  return <Timer>{zeroPad(useCounter(isClocking), 4)}</Timer>;
+  return <Timer>{renderTotalCount(zeroPad(useCounter(isClocking), 4))}</Timer>;
 },);
 
 export default Counter;

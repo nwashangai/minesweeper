@@ -17,18 +17,31 @@ const minesweeper = createSlice({
       state.level = action.payload.level;
     },
     setLevelConfig(state, action) {
+      const grid = JSON.parse(JSON.stringify(state.grid));
       state.startTime = false;
       state.levelConfig = action.payload;
-      state.grid = generateGrid(action.payload);
+      state.grid = generateGrid(action.payload, null, grid);
     },
     updateStatus(state, action) {
       state.status = action.payload;
     },
     open: (state, action) => {
+      const grid = JSON.parse(JSON.stringify(state.grid));
       state.grid = generateGrid(
         JSON.parse(JSON.stringify(state.levelConfig)),
-        action.payload
+        action.payload,
+        grid
       );
+    },
+    suggestMine: (state, { payload: id }) => {
+      const grid = JSON.parse(JSON.stringify(state.grid));
+      const index = grid.findIndex(cell => cell.id === id);
+
+      if (!state.grid[index].show && !state.grid[index].isPossibleMine) {
+        state.grid[index].isPossibleMine = true;
+      } else if (!state.grid[index].show && state.grid[index].isPossibleMine) {
+        state.grid[index].isPossibleMine = false;
+      }
     },
     createGrame(state) {
       const gridData = JSON.parse(JSON.stringify(state.levelConfig));
@@ -47,7 +60,7 @@ const minesweeper = createSlice({
             }
           }
         }
-        if (!!state.grid.find((field) => field.show)) {
+        if (!!state.grid.find((field) => field.show || field.isPossibleMine)) {
           state.startTime = true;
         }
       } else {
@@ -93,7 +106,7 @@ export const getGridLevelsConfig = ({
   mineSweeper: InitialStateType;
 }) => state.levelConfig;
 
-export const { createGrame, changeLevel, setLevelConfig, open, updateStatus } =
+export const { createGrame, changeLevel, setLevelConfig, open, suggestMine, updateStatus } =
   minesweeper.actions;
 
 export default minesweeper.reducer;

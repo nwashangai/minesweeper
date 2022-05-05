@@ -27,7 +27,7 @@ const Overlay = ({ handleSelect }: Props) => {
             src="https://www.gstatic.com/images/icons/material/system/2x/refresh_white_24dp.png"
             alt=""
           />
-          <span>{isGameWon ? "Start new game" : "Try again"}</span>
+          <span>{isGameWon ? "New game" : "Try again"}</span>
         </button>
       </OverlayContent>
     </OverlayContainer>

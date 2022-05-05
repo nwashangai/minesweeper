@@ -1,22 +1,30 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Container, Dropdown, HeaderColumn } from "./MineSweeper.styles";
-import { changeLevel, updateStatus } from "./mineSweeper.reducer";
+import { changeLevel, updateStatus, selectLevel } from "./mineSweeper.reducer";
 import { Card } from "../common/Styles";
 import Board from "./Board";
 import Timer from "./Counter";
 import { STATUS } from "./constants";
 
-const gameBordStyle =
-  "position: absolute; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); display: flex; flex-direction: column;";
-
 const MineSweeper = () => {
+  const level = useSelector(selectLevel);
   const dispatch = useDispatch();
 
   const handleSelect = (value: string) => {
     dispatch(changeLevel({ level: Number(value) }));
     dispatch(updateStatus(STATUS.PLAYING));
   };
+
+  const gameBordStyle = `
+    ${level < 3 ? `
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      ` : ''}
+    display: flex;
+    flex-direction: column;
+    `;
 
   return (
     <Container>
@@ -27,7 +35,10 @@ const MineSweeper = () => {
           isReversed
         >
           <HeaderColumn>
-            <Dropdown onChange={(e) => handleSelect(e.target.value)}>
+            <Dropdown
+              onChange={(e) => handleSelect(e.target.value)}
+              data-testid="level-test-id"
+            >
               <option value={1}>Beginner</option>
               <option value={2}>Intermediate</option>
               <option value={3}>Professional</option>

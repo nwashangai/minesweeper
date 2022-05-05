@@ -8,8 +8,7 @@ jest.mock("./mineSweeper.reducer", () => ({
       id: "",
       show: true,
       mine: false,
-      isMined: false,
-      isQuestion: false,
+      isPossibleMine: false,
       sibblingsMines: 1,
       point: {
         col: 5,
