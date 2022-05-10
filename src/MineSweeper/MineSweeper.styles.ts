@@ -95,7 +95,7 @@ export const OverlayContent = styled.div`
   > button:last-child {
     padding: 10px;
     display: flex;
-    background: var(--cell-2-color);
+    background: var(--cell-1-color);
     border: none;
     border-radius: 4px;
     cursor: pointer;

@@ -26,6 +26,10 @@ const geenerateGrid = (data: LevelConfig, id?: string, currentGrid = []) => {
         grid.push({
           id: hash,
           isPossibleMine,
+          point: {
+            col,
+            row,
+          },
         });
       }
     }

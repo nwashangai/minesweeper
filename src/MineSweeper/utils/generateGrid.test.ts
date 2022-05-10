@@ -21,5 +21,4 @@ test("It should generate grid data from game level configuration when id is not 
     expect(grid.length).toBe(800);
     expect(grid[0].show).toBe(undefined);
     expect(grid[0].isPossibleMine).toBe(false);
-    expect(grid[5].point).toBe(undefined);
   });

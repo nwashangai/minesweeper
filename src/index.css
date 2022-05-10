@@ -9,9 +9,14 @@
   --gray-5: #000000;
   --overlay: #00000026;
   --overlay-main: #000000a2;
-  --cell-1-color: #1e38ac;
-  --cell-2-color: #23750f;
-  --cell-3-color: #df1451;
+  --cell-1-color: #23750f;
+  --cell-2-color: #e7b017;
+  --cell-3-color: #ba15ec;
+  --cell-4-color: #1567ec;
+  --cell-5-color: #5515ec;
+  --cell-6-color: #ec7d15;
+  --cell-7-color: #ec15a4;
+  --cell-8-color: #ec3615;
 }
 
 *:focus {

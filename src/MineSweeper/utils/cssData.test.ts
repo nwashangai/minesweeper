@@ -15,6 +15,6 @@ test("It should return corresponding css color property for given number", async
   expect(getCellValueColor(1)).toBe("color: var(--cell-1-color);");
   expect(getCellValueColor(2)).toBe("color: var(--cell-2-color);");
   expect(getCellValueColor(3)).toBe("color: var(--cell-3-color);");
-  expect(getCellValueColor(4)).toBe("color: var(--gray-1);");
-  expect(getCellValueColor(5)).toBe("color: var(--gray-1);");
+  expect(getCellValueColor(4)).toBe("color: var(--cell-4-color);");
+  expect(getCellValueColor(5)).toBe("color: var(--cell-5-color);");
 });
